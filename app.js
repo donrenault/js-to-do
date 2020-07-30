@@ -20,7 +20,18 @@ if ( favsItems.length === 0 ) {
 if ( taskItems.length === 0 ) {
   tasksSection.style.display = "none";
 };
-
+//
+var form = $('lists');
+form.request({
+  onSuccess: function(response) {
+    var json = eval(response.responseText);
+    rebuildWishlistTable(json);
+  },
+  onFailure: function(response) {
+    alert("AJAX request failed: " + response.responseText);
+  }
+});
+//
 taskInput.addEventListener('keyup', (e) => {
   if (e.keyCode === 13) {
     let li = document.createElement('li');
